@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block title %}Admin · {{ company }}{% endblock %}
+{% block content %}
+<header class="topbar">
+  <div class="brand">🛠️ {{ company }} · Admin</div>
+  <div class="spacer"></div>
+  <a class="btn btn-ghost" href="/chat">Open chat</a>
+  <span class="chip">{{ user.username }} · {{ user.role }}</span>
+  <button class="btn btn-ghost" data-logout>Log out</button>
+</header>
+
+<main class="container">
+  <nav class="tabs" role="tablist">
+    <button class="tab active" data-tab="docs">Documents</button>
+    <button class="tab" data-tab="users">Users</button>
+    <button class="tab" data-tab="chats">Chat history</button>
+    <button class="tab" data-tab="unanswered">Unanswered questions</button>
+  </nav>
+
+  <section class="panel" id="panel-docs">
+    <div class="card">
+      <h2>Upload documents</h2>
+      <p class="muted">Policies, FAQs, manuals (PDF, TXT or MD). Uploading a file with the same name replaces the old version.</p>
+      <label class="dropzone" id="dropzone">
+        <input id="fileInput" type="file" accept=".pdf,.txt,.md" multiple hidden>
+        <strong>Click to choose files</strong> or drag them here
+      </label>
+      <div id="uploadMsg" class="alert" hidden></div>
+    </div>
+
+  
+
+    <div class="card">
+      <div class="row">
+        <h2>Knowledge base</h2>
+        <div class="spacer"></div>
+        <button class="btn btn-ghost" id="rebuildBtn">Rebuild all</button>
+      </div>
+      <table class="table">
+        <thead><tr><th>Document</th><th>Chunks</th><th></th></tr></thead>
+        <tbody id="docsBody"></tbody>
+      </table>
+      <p id="docsEmpty" class="muted" hidden>The knowledge base is empty. Upload a PDF above.</p>
+    </div>
+  </section>
+
+  <section class="panel" id="panel-users" hidden>
+    <div class="card">
+      <h2>Registered users</h2>
+      <table class="table">
+        <thead><tr><th>Username</th><th>Role</th><th>Questions</th><th>Joined</th></tr></thead>
+        <tbody id="usersBody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="panel" id="panel-chats" hidden>
+    <div class="card">
+      <h2>Chat history</h2>
+      <p class="muted">What each person typed and how the bot answered (latest 200).</p>
+      <table class="table">
+        <thead><tr><th>When</th><th>User</th><th>Question</th><th>Answer</th><th>Found</th></tr></thead>
+        <tbody id="chatsBody"></tbody>
+      </table>
+      <p id="chatsEmpty" class="muted" hidden>No chats yet.</p>
+    </div>
+  </section>
+
+  <section class="panel" id="panel-unanswered" hidden>
+    <div class="card">
+      <h2>Questions the KB could not answer</h2>
+      <p class="muted">Use these to decide which documents to add.</p>
+      <table class="table">
+        <thead><tr><th>Question</th><th>User</th><th>When</th></tr></thead>
+        <tbody id="unansweredBody"></tbody>
+      </table>
+      <p id="unansweredEmpty" class="muted" hidden>Nothing here yet. 🎉</p>
+    </div>
+  </section>
+</main>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/admin.js') }}"></script>{% endblock %}

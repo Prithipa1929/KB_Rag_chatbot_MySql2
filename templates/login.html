@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Log in · {{ company }}{% endblock %}
+{% block content %}
+<main class="auth-wrap">
+  <section class="card auth-card">
+    <div class="logo">💬</div>
+    <h1>Welcome back</h1>
+    <p class="muted">Log in to the {{ company }} assistant</p>
+      
+        <!-- login.html-la form kulla idhai add pannunga -->
+    <div class="form-group role-selector" style="display: flex; gap: 20px; justify-content: center; margin-bottom: 15px;">
+        <label style="cursor: pointer; font-weight: bold;">
+            <input type="radio" name="role" value="user" checked> User
+        </label>
+        <label style="cursor: pointer; font-weight: bold;">
+            <input type="radio" name="role" value="admin"> Admin
+        </label>
+    </div>
+
+    <form id="loginForm" novalidate>
+      <div class="field">
+        <label for="username">Username</label>
+        <input id="username" name="username" autocomplete="username" required>
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" autocomplete="current-password" required>
+      </div>
+      <div id="formMsg" class="alert" hidden></div>
+      <button class="btn btn-primary btn-block" type="submit">Log in</button>
+    </form>
+
+    <p class="switch">New here? <a href="/register">Create an account</a></p>
+  </section>
+</main>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/auth.js') }}"></script>{% endblock %}

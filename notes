@@ -1,0 +1,61 @@
+1 token = 4 character [or 0.75 words]
+
+find tokens:
+i.) 
+character count= 800
+top_k=4
+  =>  tokens=character count / 4    # enga yen 4 naa = 1 token = 4 words
+  =>  tokens = 800/4
+  => tokens = 200
+
+ii.)
+top_k=4 chunks
+    => top_k * tokens
+    => 4 * 200
+    => 800 tokens
+
+---------------------------------------------------
+RAG = Retrieval + Augmented + Generation
+
+Retrieval: Documents la irundhu related part ah thedi edukkum.
+Augmented: Andha part ah question oda serthu LLM ku kudukkum.
+Generation: LLM andha info vechu answer eludhum.
+“Hybrid Keyword-based RAG” artham
+
+Keyword-based: Words match panni thedum. Meaning purinjikkadhu.
+Example: “founder” nu keatta, docs la “founder” nu word irundha dhaan kidaikkum. “established by” nu irundha miss aagum.
+
+Hybrid: Onnukku mela search method serthu use pannuradhu.
+
+3 parts
+
+1. TF-IDF Cosine Similarity (kb.py search())
+
+Question um ovvoru chunk um numbers (vector) ah maathum.
+Edhu romba similar nu score kudukkum.
+TF-IDF = rare words ku adhiga weight, common words (“the”, “is”) ku kammi weight.
+Words match mattum, meaning illa.
+
+2. MySQL LIKE keyword search
+
+Simple text search: WHERE text LIKE '%founder%'
+Exact word irundha dhaan kidaikkum.
+TF-IDF miss pannina idhu backup.
+
+3. Local Extractive Sentence Fallback (_extractive() in rag.py)
+
+Gemini fail aanaal use aagum.
+Chunks la irundhu best sentences ah appadiye eduthu kaatum.
+LLM illa, so answer ah rewrite pannadhu. Adhaan unrelated lines mix aagudhu.
+-----------------------------------------------------------------
+Report la ezhudha (sample paragraph): 
+    “Indha chatbot oru Hybrid Keyword-based RAG 
+(Retrieval-Augmented Generation) system. Admin upload panra PDF/TXT/MD
+documents ah 800-character chunks ah pirichu MySQL database la store 
+pannum. User oru question kettaal, TF-IDF cosine similarity and MySQL
+ LIKE keyword search use panni, question ku related chunks ah thedum. 
+ Andha chunks ah question oda serthu Gemini LLM ku anuppum, 
+ LLM documents la irukkura info vechu mattum answer generate pannum.
+ Gemini work aagalana, extractive fallback use panni, chunks la 
+ irundhu best sentences ah answer ah kaattum. Answer illana 
+ ‘Not available in KB’ nu sollum.”

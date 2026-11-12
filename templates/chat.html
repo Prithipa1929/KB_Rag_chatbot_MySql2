@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Chat · {{ company }}{% endblock %}
+{% block content %}
+<header class="topbar">
+  <div class="brand">💬 {{ company }} Assistant</div>
+  <div class="spacer"></div>
+  {% if user.role == 'admin' %}<a class="btn btn-ghost" href="/admin">Admin panel</a>{% endif %}
+  <span class="chip">{{ user.username }} · {{ user.role }}</span>
+  <button class="btn btn-ghost" data-logout>Log out</button>
+</header>
+
+<main class="chat-shell">
+  <div id="messages" class="messages" aria-live="polite"></div>
+  <form id="chatForm" class="composer">
+    <input id="question" placeholder="Ask about policies, products, processes…" autocomplete="off" maxlength="1000" required>
+    <button class="btn btn-primary" type="submit" id="sendBtn">Send</button>
+  </form>
+</main>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/chat.js') }}"></script>{% endblock %}

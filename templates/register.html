@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Register · {{ company }}{% endblock %}
+{% block content %}
+<main class="auth-wrap">
+  <section class="card auth-card">
+    <div class="logo">✨</div>
+    <h1>Create your account</h1>
+    <p class="muted">Join the {{ company }} assistant</p>
+
+    <form id="registerForm" novalidate>
+      <div class="field">
+        <label>Account type</label>
+        <div class="seg">
+          <input type="radio" id="roleUser" name="role" value="user" checked>
+          <label for="roleUser">User</label>
+          {% if admin_enabled %}
+          <input type="radio" id="roleAdmin" name="role" value="admin">
+          <label for="roleAdmin">Admin</label>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="username">Username</label>
+        <input id="username" name="username" autocomplete="username" required>
+        <small class="muted">3-60 characters. An email address works too</small>
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" autocomplete="new-password" required>
+        <small class="muted">At least 8 characters</small>
+      </div>
+      <div class="field">
+        <label for="confirm">Confirm password</label>
+        <input id="confirm" name="confirm" type="password" autocomplete="new-password" required>
+      </div>
+      <div class="field" id="adminCodeField" hidden>
+        <label for="adminCode">Admin code</label>
+        <input id="adminCode" name="admin_code" type="password" autocomplete="off">
+        <small class="muted">Ask your company for the private admin sign-up code</small>
+      </div>
+
+      <div id="formMsg" class="alert" hidden></div>
+      <button class="btn btn-primary btn-block" type="submit">Register</button>
+    </form>
+
+    <p class="switch">Already have an account? <a href="/login">Log in</a></p>
+  </section>
+</main>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/auth.js') }}"></script>{% endblock %}
