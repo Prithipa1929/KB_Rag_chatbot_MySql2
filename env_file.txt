@@ -1,0 +1,20 @@
+
+COMPANY_NAME=Zentora Labs
+SECRET_KEY=380a28d5ae9cb8cb595b3228b691fdac776cfd932141fb70c171079871b8aa35
+# Anyone registering as Admin must type this code. Empty = admin sign-up disabled.
+ADMIN_SIGNUP_CODE=123
+TOKEN_HOURS=8
+COOKIE_SECURE=0
+GOOGLE_API_KEY=AQ.Ab8RN6JTiOLlcW-YHAjJ5a_6kQmgLdWQNka2othIpeJxlOIrIg
+LLM_MODEL=gemini-3.1-flash-lite
+
+# OPTIONAL: add a Gemini key for natural-language answers. Works without it.
+# GOOGLE_API_KEY=your-gemini-api-key
+# LLM_MODEL=gemini-2.5-flash
+
+# MySQL database (created automatically if the user has permission)
+MYSQL_HOST=127.0.0.1
+MYSQL_PORT=3306
+MYSQL_USER=root
+MYSQL_PASSWORD=Test@123
+MYSQL_DATABASE=kb_rag_chatbot
